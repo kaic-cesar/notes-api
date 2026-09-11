@@ -3,6 +3,7 @@ package com.kaiccesar.notes_api.note.controller;
 import com.kaiccesar.notes_api.note.dto.NoteRequestDTO;
 import com.kaiccesar.notes_api.note.dto.NoteResponseDTO;
 import com.kaiccesar.notes_api.note.service.NoteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class NoteController {
     }
 
     @PostMapping
-    public ResponseEntity<NoteResponseDTO> create(@RequestBody NoteRequestDTO requestDTO){
+    public ResponseEntity<NoteResponseDTO> create(@Valid @RequestBody NoteRequestDTO requestDTO){
         NoteResponseDTO responseDTO = service.create(requestDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
@@ -32,7 +33,7 @@ public class NoteController {
     @PutMapping("/{id}")
     public ResponseEntity<NoteResponseDTO> update(
             @PathVariable Long id,
-            @RequestBody NoteRequestDTO requestDTO
+            @Valid @RequestBody NoteRequestDTO requestDTO
     ){
         NoteResponseDTO responseDTO = service.update(id, requestDTO);
         return ResponseEntity.ok(responseDTO);

@@ -2,6 +2,7 @@ package com.kaiccesar.notes_api.note.service;
 
 import com.kaiccesar.notes_api.note.dto.NoteRequestDTO;
 import com.kaiccesar.notes_api.note.dto.NoteResponseDTO;
+import com.kaiccesar.notes_api.note.exception.NoteNotFoundException;
 import com.kaiccesar.notes_api.note.model.NoteModel;
 import com.kaiccesar.notes_api.note.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class NoteService {
 
     public NoteResponseDTO update(Long id, NoteRequestDTO requestDTO){
         NoteModel noteModel = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("ID não encontrado"));
+                .orElseThrow(() -> new NoteNotFoundException(id));
 
         noteModel.setTitle(requestDTO.title());
         noteModel.setContent(requestDTO.content());
@@ -68,7 +69,7 @@ public class NoteService {
 
     public void delete(Long id){
         NoteModel noteModel = repository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("ID não encontrado"));
+                        .orElseThrow(() -> new NoteNotFoundException(id));
 
         repository.delete(noteModel);
     }
