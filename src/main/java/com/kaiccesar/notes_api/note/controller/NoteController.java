@@ -37,4 +37,11 @@ public class NoteController {
         NoteResponseDTO responseDTO = service.update(id, requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

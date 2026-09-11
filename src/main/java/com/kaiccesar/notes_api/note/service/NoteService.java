@@ -65,4 +65,11 @@ public class NoteService {
                 updatedNote.getUpdateAt()
         );
     }
+
+    public void delete(Long id){
+        NoteModel noteModel = repository.findById(id)
+                        .orElseThrow(() -> new RuntimeException("ID não encontrado"));
+
+        repository.delete(noteModel);
+    }
 }
