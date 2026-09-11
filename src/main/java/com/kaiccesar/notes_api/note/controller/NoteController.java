@@ -28,4 +28,13 @@ public class NoteController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<NoteResponseDTO> update(
+            @PathVariable Long id,
+            @RequestBody NoteRequestDTO requestDTO
+    ){
+        NoteResponseDTO responseDTO = service.update(id, requestDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
 }

@@ -46,4 +46,23 @@ public class NoteService {
                 createdNote.getUpdateAt()
         );
     }
+
+    public NoteResponseDTO update(Long id, NoteRequestDTO requestDTO){
+        NoteModel noteModel = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("ID não encontrado"));
+
+        noteModel.setTitle(requestDTO.title());
+        noteModel.setContent(requestDTO.content());
+        noteModel.setUpdateAt(LocalDateTime.now());
+
+        NoteModel updatedNote = repository.save(noteModel);
+
+        return new NoteResponseDTO(
+                updatedNote.getId(),
+                updatedNote.getTitle(),
+                updatedNote.getContent(),
+                updatedNote.getCreateAt(),
+                updatedNote.getUpdateAt()
+        );
+    }
 }
